@@ -16,7 +16,7 @@
       </li>
       <li class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer">
         <img src="/heart.svg" alt="Heart" />
-        <span>Закладки</span>
+        <span>Избранное</span>
       </li>
       <li class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer">
         <img src="/profile.svg" alt="Profile" />
