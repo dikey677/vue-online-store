@@ -12,9 +12,11 @@ const onClickAdded = () => {}
 <template>
   <div class="mt-10 grid grid-cols-4 gap-3">
     <Card
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      image-url="/public/sneakers/sneakers-1.jpg"
-      :price="12999"
+      v-for="item in items"
+      :key="item.id"
+      :title="item.title"
+      :imageUrl="item.imageUrl"
+      :price="item.price"
       :isFavorite="true"
       :isAdded="false"
       :onClickFavorite="onClickFavorite"
