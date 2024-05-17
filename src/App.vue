@@ -1,21 +1,44 @@
 <script setup>
 import Header from './components/Header.vue'
 import CardList from './components/CardList.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch, reactive } from 'vue'
 import axios from 'axios'
 // import Drawer from './components/Drawer.vue'
 
 const items = ref([])
 
-onMounted(async () => {
+const filters = reactive({ sortBy: 'title', searchQuery: '' })
+
+const onChangeSelect = (e) => {
+  filters.sortBy = e.target.value
+  // console.log(e.target.value)
+}
+
+const onChangeSearch = (e) => {
+  filters.searchQuery = e.target.value
+  // console.log(e.target.value)
+}
+
+const fetchItems = async () => {
   try {
-    const { data } = await axios.get('https://604781a0efa572c1.mokky.dev/items')
+    const params = {
+      sortBy: filters.sortBy
+    }
+
+    if (filters.searchQuery) {
+      params.title = `*${filters.searchQuery}*`
+    }
+
+    const { data } = await axios.get('https://604781a0efa572c1.mokky.dev/items', { params })
 
     items.value = data
   } catch (error) {
     console.log(error)
   }
-})
+}
+
+onMounted(fetchItems)
+watch(filters, fetchItems)
 </script>
 
 <template>
@@ -28,15 +51,16 @@ onMounted(async () => {
         <h2 class="text-3xl font-bold">Все кроссовки</h2>
 
         <div class="flex gap-4">
-          <select class="py-2 px-3 border rounded-md outline-none">
-            <option>По названию</option>
-            <option>Дешевле</option>
-            <option>Дороже</option>
+          <select @change="onChangeSelect" class="py-2 px-3 border rounded-md outline-none">
+            <option value="name">По названию</option>
+            <option value="price">Дешевле</option>
+            <option value="-price">Дороже</option>
           </select>
 
           <div class="relative">
             <img src="/public/search.svg" class="absolute top-3 left-4" />
             <input
+              @input="onChangeSearch"
               type="text"
               placeholder="Поиск..."
               class="border rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray-400 hover:border-gray-400 transition"
