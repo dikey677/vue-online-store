@@ -19,6 +19,16 @@ const onChangeSearch = (e) => {
   // console.log(e.target.value)
 }
 
+const fetchFavorites = async () => {
+  try {
+    const { data } = await axios.get('https://38b4994b47f6b2ae.mokky.dev/favorites')
+
+    items.value = data.map((obj) => ({ ...obj, isFavorite: false, isAdded: false }))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const fetchItems = async () => {
   try {
     const params = {
@@ -29,7 +39,7 @@ const fetchItems = async () => {
       params.title = `*${filters.searchQuery}*`
     }
 
-    const { data } = await axios.get('https://604781a0efa572c1.mokky.dev/items', { params })
+    const { data } = await axios.get('https://38b4994b47f6b2ae.mokky.dev/items', { params })
 
     items.value = data
   } catch (error) {
