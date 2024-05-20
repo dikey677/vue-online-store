@@ -1,6 +1,13 @@
+<script setup>
+import { inject } from 'vue'
+
+const onCartClose = inject('onCartClose')
+</script>
+
 <template>
   <div class="flex items-center gap-5 mb-5">
     <svg
+      @click="onCartClose"
       width="10"
       height="15"
       viewBox="0 0 10 15"

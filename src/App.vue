@@ -1,7 +1,7 @@
 <script setup>
 import Header from './components/Header.vue'
 import CardList from './components/CardList.vue'
-import { onMounted, ref, watch, reactive } from 'vue'
+import { onMounted, ref, watch, reactive, provide } from 'vue'
 import axios from 'axios'
 import Drawer from './components/Drawer.vue'
 
@@ -20,6 +20,10 @@ const onChangeSearch = (e) => {
 
 const onCartOpen = () => {
   cartOpen.value = true
+}
+
+const onCartClose = () => {
+  cartOpen.value = false
 }
 
 const fetchFavorites = async () => {
@@ -89,6 +93,8 @@ const fetchItems = async () => {
     console.log(error)
   }
 }
+
+provide('onCartClose', onCartClose)
 
 onMounted(async () => {
   await fetchItems()
