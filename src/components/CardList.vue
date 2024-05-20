@@ -5,7 +5,8 @@ defineProps({
   items: Array
 })
 
-const onClickFavorite = () => {}
+const emit = defineEmits(['addToFavorite'])
+
 const onClickAdded = () => {}
 </script>
 
@@ -14,12 +15,12 @@ const onClickAdded = () => {}
     <Card
       v-for="item in items"
       :key="item.id"
+      :id="item.id"
       :title="item.title"
       :imageUrl="item.imageUrl"
       :price="item.price"
-      :isFavorite="true"
-      :isAdded="false"
-      :onClickFavorite="onClickFavorite"
+      :isFavorite="item.isFavorite"
+      :onClickFavorite="() => emit('addToFavorite', item)"
       :onClickAdded="onClickAdded"
     />
   </div>
