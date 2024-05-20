@@ -18,7 +18,7 @@ const onChangeSearch = (e) => {
   filters.searchQuery = e.target.value
 }
 
-const onClickCart = () => {
+const onCartOpen = () => {
   cartOpen.value = true
 }
 
@@ -100,7 +100,7 @@ watch(filters, fetchItems)
 <template>
   <Drawer v-if="cartOpen" />
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-2xl mt-10">
-    <Header @onClickCart="onClickCart" />
+    <Header @onCartOpen="onCartOpen" />
 
     <div class="p-10">
       <div class="flex justify-between">
