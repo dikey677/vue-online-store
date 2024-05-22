@@ -1,12 +1,20 @@
+<script setup>
+defineProps({
+  title: String,
+  imageUrl: String,
+  price: Number
+})
+</script>
+
 <template>
   <div class="flex items-centerw-full border border-slate-100 p-4 rounded-xl gap-4">
-    <img src="/public/sneakers/sneakers-1.jpg" alt="Sneaker" class="w-16 h-16" />
+    <img :src="imageUrl" alt="Sneaker" class="w-16 h-16" />
 
     <div class="flex flex-col justify-between">
-      <p>Мужские Кроссовки Nike Blazer Mid Suede</p>
+      <p>{{ title }}</p>
 
       <div class="flex justify-between mt-2">
-        <b>12999 руб.</b>
+        <b>{{ price }} руб.</b>
         <img
           src="/public/close.svg"
           alt="Close"
