@@ -1,4 +1,7 @@
 <script setup>
+import { inject } from 'vue'
+const { totalPrice } = inject('cart')
+
 const emit = defineEmits(['onCartOpen'])
 </script>
 
@@ -19,7 +22,7 @@ const emit = defineEmits(['onCartOpen'])
         class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer"
       >
         <img src="/cart.svg" alt="Cart" />
-        <b>1205 руб.</b>
+        <b>{{ totalPrice }} руб.</b>
       </li>
       <li class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer">
         <img src="/heart.svg" alt="Heart" />

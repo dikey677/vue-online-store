@@ -1,13 +1,17 @@
 <script setup>
 import Header from './components/Header.vue'
 import CardList from './components/CardList.vue'
-import { onMounted, ref, watch, reactive, provide } from 'vue'
+import { onMounted, ref, watch, reactive, provide, computed } from 'vue'
 import axios from 'axios'
 import Drawer from './components/Drawer.vue'
 
 const items = ref([])
 const cartItems = ref([])
 const cartOpen = ref(false)
+
+const totalPrice = computed(() => cartItems.value.reduce((acc, item) => acc + item.price, 0))
+
+const taxPrice = computed(() => Math.round((totalPrice.value * 20) / 100))
 
 const filters = reactive({ sortBy: 'title', searchQuery: '' })
 
@@ -70,15 +74,23 @@ const addToFavorite = async (item) => {
   }
 }
 
-const addToCart = async (item) => {
+const addToCart = (item) => {
+  cartItems.value.push(item)
+  item.isAdded = true
+  // console.log(cartItems.value)
+}
+
+const deleteFromCart = (item) => {
+  cartItems.value.splice(cartItems.value.indexOf(item), 1)
+  item.isAdded = false
+  // console.log(cartItems.value)
+}
+
+const onClickToAddCart = (item) => {
   if (!item.isAdded) {
-    cartItems.value.push(item)
-    item.isAdded = true
-    console.log(cartItems.value)
+    addToCart(item)
   } else {
-    cartItems.value.splice(cartItems.value.indexOf(item), 1)
-    item.isAdded = false
-    console.log(cartItems.value)
+    deleteFromCart(item)
   }
 }
 
@@ -107,7 +119,7 @@ const fetchItems = async () => {
   }
 }
 
-provide('cart', { cartItems, onCartClose })
+provide('cart', { cartItems, onCartClose, deleteFromCart, addToCart, totalPrice, taxPrice })
 
 onMounted(async () => {
   await fetchItems()
@@ -143,7 +155,11 @@ watch(filters, fetchItems)
           </div>
         </div>
       </div>
-      <CardList :items="items" @addToFavorite="addToFavorite" @addToCart="addToCart" />
+      <CardList
+        :items="items"
+        @addToFavorite="addToFavorite"
+        @onClickToAddCart="onClickToAddCart"
+      />
     </div>
   </div>
 </template>

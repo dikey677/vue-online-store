@@ -2,7 +2,7 @@
 import CartItem from './CartItem.vue'
 import { inject } from 'vue'
 
-const { cartItems } = inject('cart')
+const { cartItems, deleteFromCart } = inject('cart')
 </script>
 
 <template>
@@ -13,6 +13,7 @@ const { cartItems } = inject('cart')
       :title="cart.title"
       :imageUrl="cart.imageUrl"
       :price="cart.price"
+      @deleteFromCart="deleteFromCart(cart)"
     />
   </div>
 </template>
