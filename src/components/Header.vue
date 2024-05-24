@@ -25,11 +25,11 @@ const emit = defineEmits(['onCartOpen'])
         <b>{{ totalPrice }} руб.</b>
       </li>
       <li class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer">
-        <img src="../public/heart.svg" alt="Heart" />
+        <img src="/public/heart.svg" alt="Heart" />
         <span>Избранное</span>
       </li>
       <li class="flex items-center text-gray-500 gap-3 hover:text-black cursor-pointer">
-        <img src="../public/profile.svg" alt="Profile" />
+        <img src="/public/profile.svg" alt="Profile" />
         <span>Профиль</span>
       </li>
     </ul>

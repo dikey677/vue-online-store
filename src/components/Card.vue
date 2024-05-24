@@ -31,7 +31,7 @@ defineProps({
         </div>
 
         <img
-          :src="!isAdded ? '/public/plus.svg' : '/public/checked.svg'"
+          :src="!isAdded ? './public/plus.svg' : './public/checked.svg'"
           alt="Add"
           @click="onClickAdded"
         />
